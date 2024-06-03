@@ -3616,18 +3616,19 @@ walker@^1.0.8:
   dependencies:
     makeerror "1.0.12"
 
-web3-core@^4.3.0, web3-core@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/web3-core/-/web3-core-4.3.1.tgz"
-  integrity sha512-xa3w5n/ESxp5HIbrwsYBhpAPx2KI5LprjRFEtRwP0GpqqhTcCSMMYoyItRqQQ+k9YnB0PoFpWJfJI6Qn5x8YUQ==
+web3-core@^4.3.0, web3-core@^4.3.1, web3-core@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.npmjs.org/web3-core/-/web3-core-4.4.0.tgz"
+  integrity sha512-sN1AkhTAFI89anOeCaO0c3GtiGeWtOGVc2tmTdQs2Rd14HuxLyDuLIF3/WwjtkDFRM2189uYy8HJJSWJvW2mYA==
   dependencies:
-    web3-errors "^1.1.4"
+    web3-errors "^1.2.0"
+    web3-eth-accounts "^4.1.2"
     web3-eth-iban "^4.0.7"
     web3-providers-http "^4.1.0"
     web3-providers-ws "^4.0.7"
-    web3-types "^1.3.1"
-    web3-utils "^4.0.7"
-    web3-validator "^2.0.3"
+    web3-types "^1.6.0"
+    web3-utils "^4.3.0"
+    web3-validator "^2.0.6"
   optionalDependencies:
     web3-providers-ipc "^4.0.7"
 
@@ -3638,29 +3639,29 @@ web3-errors@^1.1.3, web3-errors@^1.1.4, web3-errors@^1.2.0:
   dependencies:
     web3-types "^1.6.0"
 
-web3-eth-abi@^4.1.4:
-  version "4.1.4"
-  resolved "https://registry.npmjs.org/web3-eth-abi/-/web3-eth-abi-4.1.4.tgz"
-  integrity sha512-YLOBVVxxxLYKXjaiwZjEWYEnkMmmrm0nswZsvzSsINy/UgbWbzfoiZU+zn4YNWIEhORhx1p37iS3u/dP6VyC2w==
+web3-eth-abi@^4.1.4, web3-eth-abi@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.npmjs.org/web3-eth-abi/-/web3-eth-abi-4.2.2.tgz"
+  integrity sha512-akbGi642UtKG3k3JuLbhl9KuG7LM/cXo/by2WfdwfOptGZrzRsWJNWje1d2xfw1n9kkVG9SAMvPJl1uSyR3dfw==
   dependencies:
     abitype "0.7.1"
-    web3-errors "^1.1.3"
-    web3-types "^1.3.0"
-    web3-utils "^4.0.7"
-    web3-validator "^2.0.3"
+    web3-errors "^1.2.0"
+    web3-types "^1.6.0"
+    web3-utils "^4.3.0"
+    web3-validator "^2.0.6"
 
-web3-eth-accounts@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/web3-eth-accounts/-/web3-eth-accounts-4.1.0.tgz"
-  integrity sha512-UFtAsOANsvihTQ6SSvOKguupmQkResyR9M9JNuOxYpKh7+3W+sTnbLXw2UbOSYIsKlc1mpqqW9bVr1SjqHDpUQ==
+web3-eth-accounts@^4.1.0, web3-eth-accounts@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.npmjs.org/web3-eth-accounts/-/web3-eth-accounts-4.1.2.tgz"
+  integrity sha512-y0JynDeTDnclyuE9mShXLeEj+BCrPHxPHOyPCgTchUBQsALF9+0OhP7WiS3IqUuu0Hle5bjG2f5ddeiPtNEuLg==
   dependencies:
     "@ethereumjs/rlp" "^4.0.1"
     crc-32 "^1.2.2"
     ethereum-cryptography "^2.0.0"
-    web3-errors "^1.1.3"
-    web3-types "^1.3.0"
-    web3-utils "^4.0.7"
-    web3-validator "^2.0.3"
+    web3-errors "^1.1.4"
+    web3-types "^1.6.0"
+    web3-utils "^4.2.3"
+    web3-validator "^2.0.5"
 
 web3-eth-contract@^4.1.2, web3-eth-contract@^4.1.3:
   version "4.1.3"
@@ -3712,32 +3713,32 @@ web3-eth-personal@^4.0.8:
     web3-utils "^4.0.7"
     web3-validator "^2.0.3"
 
-web3-eth@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/web3-eth/-/web3-eth-4.3.1.tgz"
-  integrity sha512-zJir3GOXooHQT85JB8SrufE+Voo5TtXdjhf1D8IGXmxM8MrhI8AT+Pgt4siBTupJcu5hF17iGmTP/Nj2XnaibQ==
+web3-eth@^4.3.1, web3-eth@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.npmjs.org/web3-eth/-/web3-eth-4.7.0.tgz"
+  integrity sha512-gqlWq4Xjz+yKL2MdxQ+BgR3F4CRo4AXWDXzftb3LDzvauEfjk/yRyoxkMSK4S9RIG96ylRImS172cV6cYzcukw==
   dependencies:
     setimmediate "^1.0.5"
-    web3-core "^4.3.0"
-    web3-errors "^1.1.3"
-    web3-eth-abi "^4.1.4"
-    web3-eth-accounts "^4.1.0"
-    web3-net "^4.0.7"
+    web3-core "^4.4.0"
+    web3-errors "^1.2.0"
+    web3-eth-abi "^4.2.2"
+    web3-eth-accounts "^4.1.2"
+    web3-net "^4.1.0"
     web3-providers-ws "^4.0.7"
-    web3-rpc-methods "^1.1.3"
-    web3-types "^1.3.0"
-    web3-utils "^4.0.7"
-    web3-validator "^2.0.3"
+    web3-rpc-methods "^1.3.0"
+    web3-types "^1.6.0"
+    web3-utils "^4.3.0"
+    web3-validator "^2.0.6"
 
-web3-net@^4.0.7:
-  version "4.0.7"
-  resolved "https://registry.npmjs.org/web3-net/-/web3-net-4.0.7.tgz"
-  integrity sha512-SzEaXFrBjY25iQGk5myaOfO9ZyfTwQEa4l4Ps4HDNVMibgZji3WPzpjq8zomVHMwi8bRp6VV7YS71eEsX7zLow==
+web3-net@^4.0.7, web3-net@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/web3-net/-/web3-net-4.1.0.tgz"
+  integrity sha512-WWmfvHVIXWEoBDWdgKNYKN8rAy6SgluZ0abyRyXOL3ESr7ym7pKWbfP4fjApIHlYTh8tNqkrdPfM4Dyi6CA0SA==
   dependencies:
-    web3-core "^4.3.0"
-    web3-rpc-methods "^1.1.3"
-    web3-types "^1.3.0"
-    web3-utils "^4.0.7"
+    web3-core "^4.4.0"
+    web3-rpc-methods "^1.3.0"
+    web3-types "^1.6.0"
+    web3-utils "^4.3.0"
 
 web3-providers-http@^4.1.0:
   version "4.1.0"
@@ -3770,21 +3771,21 @@ web3-providers-ws@^4.0.7:
     web3-utils "^4.0.7"
     ws "^8.8.1"
 
-web3-rpc-methods@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.npmjs.org/web3-rpc-methods/-/web3-rpc-methods-1.1.3.tgz"
-  integrity sha512-XB6SsCZZPdZUMPIRqDxJkZFKMu0/Y+yaExAt+Z7RqmuM7xF55fJ/Qb84LQho8zarvUoYziy4jnIfs+SXImxQUw==
+web3-rpc-methods@^1.1.3, web3-rpc-methods@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.npmjs.org/web3-rpc-methods/-/web3-rpc-methods-1.3.0.tgz"
+  integrity sha512-/CHmzGN+IYgdBOme7PdqzF+FNeMleefzqs0LVOduncSaqsppeOEoskLXb2anSpzmQAP3xZJPaTrkQPWSJMORig==
   dependencies:
-    web3-core "^4.3.0"
-    web3-types "^1.3.0"
-    web3-validator "^2.0.3"
+    web3-core "^4.4.0"
+    web3-types "^1.6.0"
+    web3-validator "^2.0.6"
 
 web3-types@^1.3.0, web3-types@^1.3.1, web3-types@^1.6.0:
   version "1.6.0"
   resolved "https://registry.npmjs.org/web3-types/-/web3-types-1.6.0.tgz"
   integrity sha512-qgOtADqlD5hw+KPKBUGaXAcdNLL0oh6qTeVgXwewCfbL/lG9R+/GrgMQB1gbTJ3cit8hMwtH8KX2Em6OwO0HRw==
 
-web3-utils@^4.0.7:
+web3-utils@^4.0.7, web3-utils@^4.2.3, web3-utils@^4.3.0:
   version "4.3.0"
   resolved "https://registry.npmjs.org/web3-utils/-/web3-utils-4.3.0.tgz"
   integrity sha512-fGG2IZr0XB1vEoWZiyJzoy28HpsIfZgz4mgPeQA9aj5rIx8z0o80qUPtIyrCYX/Bo2gYALlV5SWIJWxJNUQn9Q==
@@ -3795,7 +3796,7 @@ web3-utils@^4.0.7:
     web3-types "^1.6.0"
     web3-validator "^2.0.6"
 
-web3-validator@^2.0.3, web3-validator@^2.0.6:
+web3-validator@^2.0.3, web3-validator@^2.0.5, web3-validator@^2.0.6:
   version "2.0.6"
   resolved "https://registry.npmjs.org/web3-validator/-/web3-validator-2.0.6.tgz"
   integrity sha512-qn9id0/l1bWmvH4XfnG/JtGKKwut2Vokl6YXP5Kfg424npysmtRLe9DgiNBM9Op7QL/aSiaA0TVXibuIuWcizg==
