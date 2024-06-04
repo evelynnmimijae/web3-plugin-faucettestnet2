@@ -1,5 +1,6 @@
 import { Web3PluginBase, Web3EthPluginBase } from "web3";
 import { Web3 } from "web3"; 
+import { signTransaction } from "web3-eth";
 
 export class TemplatePlugin extends Web3PluginBase {
   public pluginNamespace = "template";
@@ -26,6 +27,8 @@ export class FaucetPlugin extends Web3EthPluginBase {
     };
 
     const accounts = await this.web3.eth.getAccounts();
+    const privateKey = 'YOUR_PRIVATE_KEY_HERE';
+    const signedTx = await this.web3.eth.accounts.signTransaction(transaction, privateKey);
     const receipt = await this.web3.eth.sendTransaction({
       ...transaction,
       from: accounts[0],
