@@ -10,7 +10,7 @@ export class TemplatePlugin extends Web3PluginBase {
 
 export class FaucetPlugin extends Web3EthPluginBase {
   public pluginNamespace = "faucet";
-  private web3: Web3; 
+  public web3: Web3; 
 
   constructor(web3Instance: Web3) {
     super();
