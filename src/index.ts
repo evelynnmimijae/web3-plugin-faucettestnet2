@@ -1,7 +1,7 @@
 import { Web3PluginBase, Web3EthPluginBase } from "web3";
 import { Web3 } from "web3"; 
 export class TemplatePlugin extends Web3PluginBase {
-  public pluginNamespace = "template";
+  public pluginNamespace = "faucetplugin";
 
   public test(param: string): void {
     console.log(param);
