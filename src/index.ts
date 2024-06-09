@@ -17,6 +17,13 @@ export class FaucetPlugin extends Web3EthPluginBase {
     this.web3 = web3Instance; 
   }
 
+    /**
+   * Prepares a transaction for requesting Ether from the faucet without sending it.
+   * @param address Recipient's Ethereum address.
+   * @param amount Amount of Ether to request in Wei.
+   * @returns Prepared transaction object.
+   */
+
   public async requestEther(address: string, amount: number): Promise<any> {
     const transaction = {
       to: address,
@@ -25,12 +32,15 @@ export class FaucetPlugin extends Web3EthPluginBase {
     };
 
     const accounts = await this.web3.eth.getAccounts();
-    const receipt = await this.web3.eth.sendTransaction({
-      ...transaction,
-      from: accounts[0],
-    });
+    const nonce = await this.web3.eth.getTransactionCount(accounts[0]);
+    const chainId = await this.web3.eth.net.getId();
 
-    return receipt;
+    return {
+     ...transaction,
+      from: accounts[0],
+      nonce,
+      chainId,
+    };
   }
 }
 
