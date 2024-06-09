@@ -13,13 +13,14 @@ jest.mock('web3', () => ({
         signTransaction: jest.fn().mockResolvedValue({
           rawTransaction: '0xMockedRawTransaction',
           transactionHash: '0xMockedTxHash',
-      }),
-      sendSignedTransaction: jest.fn().mockResolvedValue({
+        }),
+        sendSignedTransaction: jest.fn().mockResolvedValue({
           transactionHash: '0xMockedTxHash',
-      }),
-    },
-    utils: {
-      toWei: jest.fn().mockReturnValue('1000000000000000000'), // Mock conversion to wei
+        }),
+      },
+      utils: {
+        toWei: jest.fn().mockReturnValue('1000000000000000000'), // Mock conversion to wei
+      },
     },
   })),
 }));
