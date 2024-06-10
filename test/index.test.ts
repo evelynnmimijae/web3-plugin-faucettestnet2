@@ -18,9 +18,9 @@ jest.mock('web3', () => ({
           transactionHash: '0xMockedTxHash',
         }),
       },
-      utils: {
-        toWei: jest.fn().mockReturnValue('1000000000000000000'), // Mock conversion to wei
-      },
+    },
+    utils: {
+      toWei: jest.fn().mockReturnValue('1000000000000000000'), // Mock conversion to wei
     },
   })),
 }));
@@ -34,7 +34,6 @@ describe("TemplatePlugin Tests", () => {
 
   describe("TemplatePlugin method tests", () => {
     let consoleSpy: jest.SpiedFunction<typeof global.console.log>;
-
     let web3: Web3;
 
     beforeAll(() => {
@@ -68,17 +67,34 @@ describe("FaucetPlugin Tests", () => {
     expect(faucetPlugin.web3).toEqual(web3);
   });
 
-  it("should prepare and send a transaction successfully", async () => {
+  it("should prepare a transaction successfully", async () => {
     const address = '0xMockedAddress';
     const amount = 1;
-    const transaction = await faucetPlugin.prepareRequestEtherTransaction(address, amount);
+    const transaction = await faucetPlugin.requestEther(address, amount);
 
-    // Mock signing and sending the transaction externally
+    expect(transaction).toMatchObject({
+      to: address,
+      value: '1000000000000000000',
+      gas: 21000,
+      from: '0xMockedAccount',
+      nonce: 0,
+      chainId: 1,
+    });
+    expect(web3.eth.getAccounts).toHaveBeenCalled();
+    expect(web3.eth.getTransactionCount).toHaveBeenCalled();
+    expect(web3.eth.net.getId).toHaveBeenCalled();
+  });
+
+  it("should sign and send a transaction successfully", async () => {
+    const address = '0xMockedAddress';
+    const amount = 1;
+    const transaction = await faucetPlugin.requestEther(address, amount);
+
+    // Simulate signing the transaction externally
     const signedTransaction = await web3.eth.accounts.signTransaction(transaction, '0xPrivateKeyOfSender');
     // const receipt = await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
 
     expect(signedTransaction.transactionHash).toBe('0xMockedTxHash');
-    expect(web3.eth.getTransactionCount).toHaveBeenCalled();
     expect(web3.eth.accounts.signTransaction).toHaveBeenCalledWith(expect.objectContaining({
       to: address,
       value: '1000000000000000000',
