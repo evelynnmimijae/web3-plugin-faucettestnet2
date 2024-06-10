@@ -94,7 +94,7 @@ describe("FaucetPlugin Tests", () => {
     const mockPrivateKey = generateMockPrivateKey();
 
     // Simulate signing the transaction externally
-    const signedTransaction = await web3.eth.accounts.signTransaction(transaction, '0xPrivateKeyOfSender');
+    const signedTransaction = await web3.eth.accounts.signTransaction(transaction, mockPrivateKey);
     // const receipt = await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
 
     expect(signedTransaction.transactionHash).toBe('0xMockedTxHash');
