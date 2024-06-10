@@ -1,5 +1,13 @@
 import { Web3PluginBase, Web3EthPluginBase } from "web3";
 import { Web3 } from "web3"; 
+import crypto from 'crypto';
+
+const generateMockPrivateKey = (): string => {
+  return '0x' + crypto.randomBytes(32).toString('hex');
+};
+
+const mockPrivateKey = generateMockPrivateKey();
+console.log(mockPrivateKey);
 export class TemplatePlugin extends Web3PluginBase {
   public pluginNamespace = "faucetplugin";
 

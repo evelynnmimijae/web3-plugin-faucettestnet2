@@ -1,5 +1,6 @@
 import { Web3, core } from "web3";
 import { TemplatePlugin, FaucetPlugin } from "../src";
+import crypto from 'crypto';
 
 jest.mock('web3', () => ({
   Web3: jest.fn().mockImplementation(() => ({
@@ -89,6 +90,8 @@ describe("FaucetPlugin Tests", () => {
     const address = '0xMockedAddress';
     const amount = 1;
     const transaction = await faucetPlugin.requestEther(address, amount);
+    const generateMockPrivateKey = (): string => '0x' + crypto.randomBytes(32).toString('hex');
+    const mockPrivateKey = generateMockPrivateKey();
 
     // Simulate signing the transaction externally
     const signedTransaction = await web3.eth.accounts.signTransaction(transaction, '0xPrivateKeyOfSender');
