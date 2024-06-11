@@ -15,9 +15,7 @@ jest.mock('web3', () => ({
           rawTransaction: '0xMockedRawTransaction',
           transactionHash: '0xMockedTxHash',
         }),
-        sendSignedTransaction: jest.fn().mockResolvedValue({
-          transactionHash: '0xMockedTxHash',
-        }),
+        sendSignedTransaction: jest.fn().mockResolvedValue({ transactionHash: '0xMockedTxHash'}),
       },
     },
     utils: {
@@ -116,6 +114,6 @@ describe("FaucetPlugin Tests", () => {
     mockPrivateKey
   );
 
-    expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith('0xMockedRawTransaction');
+    expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith(signedTransaction);
   });
 });
