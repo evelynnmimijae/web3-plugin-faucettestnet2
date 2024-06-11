@@ -1,4 +1,3 @@
-import { Web3PluginBase, Web3EthPluginBase } from "web3";
 import { Web3 } from "web3"; 
 import crypto from 'crypto';
 
@@ -8,21 +7,23 @@ const generateMockPrivateKey = (): string => {
 
 const mockPrivateKey = generateMockPrivateKey();
 console.log(mockPrivateKey);
-export class TemplatePlugin extends Web3PluginBase {
+export class TemplatePlugin {
   public pluginNamespace = "faucetplugin";
+  public web3: Web3;
+
+  constructor(web3: Web3) {
+    this.web3 = web3;
+  }
 
   public test(param: string): void {
     console.log(param);
   }
 }
-
-export class FaucetPlugin extends Web3EthPluginBase {
-  [x: string]: any;
+export class FaucetPlugin {
   public pluginNamespace = "faucet";
-  public web3: Web3; 
+  public web3: Web3;
 
   constructor(web3Instance: Web3) {
-    super();
     this.web3 = web3Instance; 
   }
 

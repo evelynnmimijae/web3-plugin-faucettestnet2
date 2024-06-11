@@ -1,4 +1,4 @@
-import { Web3, core } from "web3";
+import { Web3 } from "web3";
 import { TemplatePlugin, FaucetPlugin } from "../src";
 import crypto from 'crypto';
 
@@ -27,30 +27,24 @@ jest.mock('web3', () => ({
 }));
 
 describe("TemplatePlugin Tests", () => {
-  it("should register TemplatePlugin plugin on Web3Context instance", () => {
-    const web3Context = new core.Web3Context("http://127.0.0.1:8545");
-    web3Context.registerPlugin(new TemplatePlugin());
-    expect(web3Context.template).toBeDefined();
+  let web3: Web3;
+  let templatePlugin: TemplatePlugin;
+
+  beforeEach(() => {
+    web3 = new Web3("http://127.0.0.1:8545");
+    templatePlugin = new TemplatePlugin(web3);
   });
 
-  describe("TemplatePlugin method tests", () => {
-    let consoleSpy: jest.SpiedFunction<typeof global.console.log>;
-    let web3: Web3;
+  it("should initialize TemplatePlugin with Web3 instance", () => {
+    expect(templatePlugin).toBeDefined();
+    expect(templatePlugin.web3).toEqual(web3);
+  });
 
-    beforeAll(() => {
-      web3 = new Web3("http://127.0.0.1:8545");
-      web3.registerPlugin(new TemplatePlugin());
-      consoleSpy = jest.spyOn(global.console, "log").mockImplementation();
-    });
-
-    afterAll(() => {
-      consoleSpy.mockRestore();
-    });
-
-    it("should call TemplatePlugin test method with expected param", () => {
-      web3.template.test("test-param");
-      expect(consoleSpy).toHaveBeenCalledWith("test-param");
-    });
+  it("should call TemplatePlugin test method with expected param", () => {
+    const consoleSpy = jest.spyOn(global.console, "log").mockImplementation();
+    templatePlugin.test("test-param");
+    expect(consoleSpy).toHaveBeenCalledWith("test-param");
+    consoleSpy.mockRestore();
   });
 });
 
