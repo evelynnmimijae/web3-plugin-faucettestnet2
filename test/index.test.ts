@@ -102,7 +102,7 @@ describe("FaucetPlugin Tests", () => {
       nonce: 0,
       chainId: 1,
       rawTransaction: '0xMockedRawTransaction',
-      transactionHash: '0xMockedHash',
+      transactionHash: 'expectedTransactionHash',
     });
 
     expect(web3.eth.accounts.signTransaction).toHaveBeenCalledWith(expect.objectContaining({
