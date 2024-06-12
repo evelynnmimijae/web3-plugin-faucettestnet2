@@ -2,34 +2,41 @@ import { Web3 } from "web3";
 import { TemplatePlugin, FaucetPlugin } from "../src";
 import crypto from 'crypto';
 
-jest.mock('web3', () => ({
-  Web3: jest.fn().mockImplementation(() => ({
-    eth: {
-      getAccounts: jest.fn().mockResolvedValue(['0xMockedAccount']),
-      getTransactionCount: jest.fn().mockResolvedValue(0), // Mock for nonce
-      net: {
-        getId: jest.fn().mockResolvedValue(1), // Mock for chainId
+jest.mock('web3', () => {
+  const originalModule = jest.requireActual('web3');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+    Web3: jest.fn().mockImplementation(() => ({
+      eth: {
+        getAccounts: jest.fn().mockResolvedValue(['0xMockedAccount']),
+        getTransactionCount: jest.fn().mockResolvedValue(0), // Mock for nonce
+        net: {
+          getId: jest.fn().mockResolvedValue(1), // Mock for chainId
+        },
+        accounts: {
+          signTransaction: jest.fn().mockResolvedValue({
+            rawTransaction: '0xMockedRawTransaction',
+            transactionHash: '0xMockedTxHash',
+            to: '0xMockedAddress',
+            value: '1000000000000000000',
+            gas: 21000,
+            from: '0xMockedAccount',
+            nonce: 0,
+            chainId: 1,
+          }),
+          sendSignedTransaction: jest.fn().mockResolvedValue({
+            transactionHash: '0xMockedTxHash',
+          }),
+        },
       },
-      accounts: {
-        signTransaction: jest.fn().mockResolvedValue({
-          rawTransaction: '0xMockedRawTransaction',
-          transactionHash: '0xMockedTxHash',
-          to: '0xMockedAddress',
-          value: '1000000000000000000',
-          gas: 21000,
-          from: '0xMockedAccount',
-          nonce: 0,
-          chainId: 1,
-        }),
-        sendSignedTransaction: jest.fn().mockResolvedValue({
-          transactionHash: '0xMockedTxHash'}),
+      utils: {
+        toWei: jest.fn().mockReturnValue('1000000000000000000'), // Mock conversion to wei
       },
-    },
-    utils: {
-      toWei: jest.fn().mockReturnValue('1000000000000000000'), // Mock conversion to wei
-    },
-  })),
-}));
+    })),
+  };
+});
 
 describe("TemplatePlugin Tests", () => {
   let web3: Web3;
