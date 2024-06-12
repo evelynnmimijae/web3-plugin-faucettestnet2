@@ -14,8 +14,15 @@ jest.mock('web3', () => ({
         signTransaction: jest.fn().mockResolvedValue({
           rawTransaction: '0xMockedRawTransaction',
           transactionHash: '0xMockedTxHash',
+          to: '0xMockedAddress',
+          value: '1000000000000000000',
+          gas: 21000,
+          from: '0xMockedAccount',
+          nonce: 0,
+          chainId: 1,
         }),
-        sendSignedTransaction: jest.fn().mockResolvedValue({ transactionHash: '0xMockedTxHash'}),
+        sendSignedTransaction: jest.fn().mockResolvedValue({
+          transactionHash: '0xMockedTxHash'}),
       },
     },
     utils: {
@@ -103,7 +110,8 @@ describe("FaucetPlugin Tests", () => {
       transactionHash: '0xMockedTxHash',
     });
 
-    expect(web3.eth.accounts.signTransaction).toHaveBeenCalledWith(expect.objectContaining({
+    expect(web3.eth.accounts.signTransaction).toHaveBeenCalledWith(
+      expect.objectContaining({
       to: address,
       value: '1000000000000000000',
       gas: 21000,
