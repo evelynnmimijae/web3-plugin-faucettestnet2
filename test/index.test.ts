@@ -116,6 +116,6 @@ describe("FaucetPlugin Tests", () => {
     mockPrivateKey
   );
 
-    expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith('0xMockedRawTransaction');
+    expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith(signedTransaction);
   });
 });
