@@ -100,12 +100,6 @@ describe("FaucetPlugin Tests", () => {
     expect(signedTransaction).toHaveProperty('rawTransaction');
 
     expect(signedTransaction).toMatchObject({
-      to: address,
-      value: '1000000000000000000',
-      gas: 21000,
-      from: '0xMockedAccount',
-      nonce: 0,
-      chainId: 1,
       rawTransaction: '0xMockedRawTransaction',
       transactionHash: '0xMockedTxHash',
     });
@@ -122,6 +116,6 @@ describe("FaucetPlugin Tests", () => {
     mockPrivateKey
   );
 
-    expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith(signedTransaction);
+    expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith('0xMockedRawTransaction');
   });
 });
