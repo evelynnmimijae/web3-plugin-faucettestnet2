@@ -7,7 +7,7 @@ jest.mock('web3', () => {
 
   return {
     __esModule: true,
-   ...originalModule,
+    ...originalModule,
     Web3: jest.fn().mockImplementation(() => ({
       eth: {
         getAccounts: jest.fn().mockResolvedValue(['0xMockedAccount']),
@@ -26,8 +26,8 @@ jest.mock('web3', () => {
             nonce: 0,
             chainId: 1,
           }),
-          sendSignedTransaction: jest.fn(), // Simplified for demonstration
         },
+        sendSignedTransaction: jest.fn(), // Correct placement of the mock function
       },
       utils: {
         toWei: jest.fn().mockReturnValue('1000000000000000000'),
