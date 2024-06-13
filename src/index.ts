@@ -1,4 +1,4 @@
-import { Web3 } from "web3"; 
+import Web3 from 'web3';
 import crypto from 'crypto';
 
 const generateMockPrivateKey = (): string => {
@@ -7,6 +7,7 @@ const generateMockPrivateKey = (): string => {
 
 const mockPrivateKey = generateMockPrivateKey();
 console.log(mockPrivateKey);
+
 export class TemplatePlugin {
   public pluginNamespace = "faucetplugin";
   public web3: Web3;
@@ -19,21 +20,21 @@ export class TemplatePlugin {
     console.log(param);
   }
 }
+
 export class FaucetPlugin {
   public pluginNamespace = "faucet";
   public web3: Web3;
 
   constructor(web3Instance: Web3) {
-    this.web3 = web3Instance; 
+    this.web3 = web3Instance;
   }
 
-    /**
+  /**
    * Prepares a transaction for requesting Ether from the faucet without sending it.
    * @param address Recipient's Ethereum address.
    * @param amount Amount of Ether to request in Wei.
    * @returns Prepared transaction object.
    */
-
   public async requestEther(address: string, amount: number): Promise<any> {
     const transaction = {
       to: address,
@@ -46,11 +47,23 @@ export class FaucetPlugin {
     const chainId = await this.web3.eth.net.getId();
 
     return {
-     ...transaction,
+      ...transaction,
       from: accounts[0],
       nonce,
       chainId,
     };
+  }
+
+  /**
+   * Signs and sends a transaction.
+   * @param transaction Prepared transaction object.
+   * @param privateKey Private key for signing the transaction.
+   * @returns Signed transaction object.
+   */
+  public async signAndSendTransaction(transaction: any, privateKey: string): Promise<any> {
+    const signedTransaction = await this.web3.eth.accounts.signTransaction(transaction, privateKey);
+    await this.web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
+    return signedTransaction;
   }
 }
 
