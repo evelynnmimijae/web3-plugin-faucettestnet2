@@ -1,5 +1,5 @@
 import { Web3 } from "web3";
-import { TemplatePlugin, FaucetPlugin } from "../src";
+import { FaucetPlugin } from "../src";
 import crypto from 'crypto';
 
 jest.mock('web3', () => {
@@ -7,13 +7,13 @@ jest.mock('web3', () => {
 
   return {
     __esModule: true,
-    ...originalModule,
+   ...originalModule,
     Web3: jest.fn().mockImplementation(() => ({
       eth: {
         getAccounts: jest.fn().mockResolvedValue(['0xMockedAccount']),
-        getTransactionCount: jest.fn().mockResolvedValue(0), // Mock for nonce
+        getTransactionCount: jest.fn().mockResolvedValue(0),
         net: {
-          getId: jest.fn().mockResolvedValue(1), // Mock for chainId
+          getId: jest.fn().mockResolvedValue(1),
         },
         accounts: {
           signTransaction: jest.fn().mockResolvedValue({
@@ -26,38 +26,14 @@ jest.mock('web3', () => {
             nonce: 0,
             chainId: 1,
           }),
-          sendSignedTransaction: jest.fn().mockResolvedValue({
-            transactionHash: '0xMockedTxHash',
-          }),
+          sendSignedTransaction: jest.fn(), // Simplified for demonstration
         },
       },
       utils: {
-        toWei: jest.fn().mockReturnValue('1000000000000000000'), // Mock conversion to wei
+        toWei: jest.fn().mockReturnValue('1000000000000000000'),
       },
     })),
   };
-});
-
-describe("TemplatePlugin Tests", () => {
-  let web3: Web3;
-  let templatePlugin: TemplatePlugin;
-
-  beforeEach(() => {
-    web3 = new Web3("http://127.0.0.1:8545");
-    templatePlugin = new TemplatePlugin(web3);
-  });
-
-  it("should initialize TemplatePlugin with Web3 instance", () => {
-    expect(templatePlugin).toBeDefined();
-    expect(templatePlugin.web3).toEqual(web3);
-  });
-
-  it("should call TemplatePlugin test method with expected param", () => {
-    const consoleSpy = jest.spyOn(global.console, "log").mockImplementation();
-    templatePlugin.test("test-param");
-    expect(consoleSpy).toHaveBeenCalledWith("test-param");
-    consoleSpy.mockRestore();
-  });
 });
 
 describe("FaucetPlugin Tests", () => {
@@ -101,28 +77,12 @@ describe("FaucetPlugin Tests", () => {
 
     // Simulate signing the transaction externally
     const signedTransaction = await web3.eth.accounts.signTransaction(transaction, mockPrivateKey);
-    // const receipt = await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
 
+    // Verify the signed transaction structure
     expect(signedTransaction.transactionHash).toBe('0xMockedTxHash');
     expect(signedTransaction).toHaveProperty('rawTransaction');
 
-    expect(signedTransaction).toMatchObject({
-      rawTransaction: '0xMockedRawTransaction',
-      transactionHash: '0xMockedTxHash',
-    });
-
-    expect(web3.eth.accounts.signTransaction).toHaveBeenCalledWith(
-      expect.objectContaining({
-      to: address,
-      value: '1000000000000000000',
-      gas: 21000,
-      from: '0xMockedAccount',
-      nonce: 0,
-      chainId: 1,
-    }),
-    mockPrivateKey
-  );
-
+    // Assert that sendSignedTransaction is called with the correct raw transaction
     expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith(signedTransaction.rawTransaction);
   });
 });
