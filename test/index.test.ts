@@ -41,7 +41,7 @@ describe('FaucetPlugin Tests', () => {
   let faucetPlugin: FaucetPlugin;
 
   beforeEach(() => {
-    web3 = new Web3(); // Initialize Web3 without a URL to avoid connection attempts
+    web3 = new Web3('http://127.0.0.1:8545');
     faucetPlugin = new FaucetPlugin(web3);
   });
 
