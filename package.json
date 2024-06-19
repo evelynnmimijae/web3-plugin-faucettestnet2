@@ -1,6 +1,6 @@
 {
   "name": "web3-plugin-faucettestnet2",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A web3.js Faucet Plugin for Testnets using web3.js, Tableland, and smart contracts",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
