@@ -39,6 +39,8 @@
     "web3": ">= 4.0.3"
   },
   "dependencies": {
+    "ganache": "^7.9.2",
+    "ganache-core": "^2.13.2",
     "web3-eth": "^4.7.0",
     "web3-eth-accounts": "^4.1.2"
   }
