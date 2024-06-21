@@ -1,7 +1,7 @@
 import { Web3 } from "web3";
 import { FaucetPlugin } from "../src";
 
-jest.mock('web3', () => ({
+jest.mock("./web3Provider", () => ({
   Web3: jest.fn().mockImplementation(() => ({
     eth: {
       getAccounts: jest.fn().mockResolvedValue(['0xMockedAccount']),
@@ -37,7 +37,7 @@ describe("FaucetPlugin Tests", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    web3 = new Web3("http://127.0.0.1:8545");
+    web3 = new Web3(require("ganache-core").provider());
     faucetPlugin = new FaucetPlugin(web3);
   });
 
@@ -68,6 +68,9 @@ describe("FaucetPlugin Tests", () => {
     const address = '0xMockedAddress';
     const amount = 1;
     await faucetPlugin.requestEther(address, amount);
+
+    const accounts = await web3.eth.getAccounts();
+    const privateKey = accounts[0].privateKey; 
 
     expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith(expect.any(Object));
   });
