@@ -1,6 +1,6 @@
 import { Web3 } from "web3";
 import crypto from 'crypto';
-import { Web3PluginBase } from "web3";
+import { Web3PluginBase, eth, utils } from "web3";
 
 const generateMockPrivateKey = (): string => {
   return '0x' + crypto.randomBytes(32).toString('hex');
@@ -27,13 +27,13 @@ export class FaucetPlugin extends Web3PluginBase {
   public async requestEther(address: string, amount: number): Promise<any> {
     const transaction = {
       to: address,
-      value: this.web3.utils.toWei(amount.toString(), 'ether'),
+      value: utils.toWei(amount.toString(), 'ether'),
       gas: 21000,
     };
 
-    const accounts = await this.web3.eth.getAccounts();
-    const nonce = await this.web3.eth.getTransactionCount(accounts[0]);
-    const chainId = await this.web3.eth.net.getId();
+    const accounts = await eth.getAccounts();
+    const nonce = await eth.getTransactionCount(accounts[0]);
+    const chainId = await eth.net.getId();
 
     return {
       ...transaction,
@@ -50,8 +50,8 @@ export class FaucetPlugin extends Web3PluginBase {
    * @returns Signed transaction object.
    */
   public async signAndSendTransaction(transaction: any, privateKey: string): Promise<any> {
-    const signedTransaction = await this.web3.eth.accounts.signTransaction(transaction, privateKey);
-    await this.web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
+    const signedTransaction = await eth.accounts.signTransaction(transaction, privateKey);
+    await eth.sendSignedTransaction(signedTransaction.rawTransaction);
     return signedTransaction;
   }
 }
