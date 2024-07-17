@@ -1,5 +1,6 @@
-import { Web3 } from "web3"
+import { Web3 } from "web3";
 import crypto from 'crypto';
+import { Web3PluginBase } from "web3";
 
 const generateMockPrivateKey = (): string => {
   return '0x' + crypto.randomBytes(32).toString('hex');
@@ -8,7 +9,7 @@ const generateMockPrivateKey = (): string => {
 const mockPrivateKey = generateMockPrivateKey();
 console.log(mockPrivateKey);
 
-export class FaucetPlugin {
+export class FaucetPlugin extends Web3PluginBase {
   public pluginNamespace = "faucet";
   public web3: Web3;
 
