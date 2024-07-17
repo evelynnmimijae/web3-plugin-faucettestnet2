@@ -8,19 +8,6 @@ const generateMockPrivateKey = (): string => {
 const mockPrivateKey = generateMockPrivateKey();
 console.log(mockPrivateKey);
 
-export class TemplatePlugin {
-  public pluginNamespace = "faucetplugin";
-  public web3: Web3;
-
-  constructor(web3: Web3) {
-    this.web3 = web3;
-  }
-
-  public test(param: string): void {
-    console.log(param);
-  }
-}
-
 export class FaucetPlugin {
   public pluginNamespace = "faucet";
   public web3: Web3;
@@ -70,7 +57,6 @@ export class FaucetPlugin {
 // Module Augmentation
 declare module "web3" {
   interface Web3Context {
-    template: TemplatePlugin;
     faucet: FaucetPlugin;
   }
 }
