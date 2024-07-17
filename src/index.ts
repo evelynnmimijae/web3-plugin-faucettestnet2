@@ -14,6 +14,7 @@ export class FaucetPlugin extends Web3PluginBase {
   public web3: Web3;
 
   constructor(web3Instance: Web3) {
+    super();
     this.web3 = web3Instance;
   }
 
