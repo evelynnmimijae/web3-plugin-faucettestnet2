@@ -1,7 +1,7 @@
 import { Web3 } from "web3";
 import { FaucetPlugin } from "../src";
 
-jest.mock("./web3Provider", () => ({
+jest.mock("./src/web3Provider", () => ({
   Web3: jest.fn().mockImplementation(() => ({
     eth: {
       getAccounts: jest.fn().mockResolvedValue(['0xMockedAccount']),
