@@ -69,8 +69,6 @@ describe("FaucetPlugin Tests", () => {
     const amount = 1;
     await faucetPlugin.requestEther(address, amount);
 
-    const accounts = await web3.eth.getAccounts();
-    const privateKey = accounts[0].privateKey; 
 
     expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith(expect.any(Object));
   });
