@@ -1,4 +1,4 @@
-import { Web3 } from "web3";
+import Web3 from "web3";
 import { FaucetPlugin } from "../src";
 
 jest.mock("./src/web3Provider", () => ({
