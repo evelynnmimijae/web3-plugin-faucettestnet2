@@ -6,7 +6,7 @@ export class FaucetPlugin {
     web3: Web3;
   
     constructor(web3: Web3) {
-      this.web3 = web3;
+      this.web3 = new Web3(web3);
     }
   
     async requestEther(address: string, amount: number) {

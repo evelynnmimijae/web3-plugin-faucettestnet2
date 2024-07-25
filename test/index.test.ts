@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import { FaucetPlugin } from "../src";
 
-jest.mock("./src/web3Provider", () => ({
+jest.mock("../src/web3Provider", () => ({
   Web3: jest.fn().mockImplementation(() => ({
     eth: {
       getAccounts: jest.fn().mockResolvedValue(['0xMockedAccount']),
@@ -48,8 +48,7 @@ describe("FaucetPlugin Tests", () => {
 
   it("should prepare a transaction successfully", async () => {
     const address = '0xMockedAddress';
-    const amount = 1;
-    const transaction = await faucetPlugin.requestEther(address, amount);
+    const transaction = await faucetPlugin.requestEther(address, 1);
 
     expect(transaction).toMatchObject({
       to: address,
@@ -66,8 +65,7 @@ describe("FaucetPlugin Tests", () => {
 
   it("should sign and send a transaction successfully", async () => {
     const address = '0xMockedAddress';
-    const amount = 1;
-    await faucetPlugin.requestEther(address, amount);
+    await faucetPlugin.requestEther(address, 1);
 
 
     expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith(expect.any(Object));
