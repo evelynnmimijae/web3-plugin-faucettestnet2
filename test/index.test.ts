@@ -5,9 +5,9 @@ jest.mock("../src/web3Provider", () => ({
   Web3: jest.fn().mockImplementation(() => ({
     eth: {
       getAccounts: jest.fn().mockResolvedValue(['0xMockedAccount']),
-      getTransactionCount: jest.fn().mockResolvedValue(0),
+      getTransactionCount: jest.fn().mockResolvedValue(0n),
       net: {
-        getId: jest.fn().mockResolvedValue(1),
+        getId: jest.fn().mockResolvedValue(1n),
       },
       accounts: {
         signTransaction: jest.fn().mockResolvedValue({
@@ -17,8 +17,8 @@ jest.mock("../src/web3Provider", () => ({
           value: '1000000000000000000',
           gas: 21000,
           from: '0xMockedAccount',
-          nonce: 0,
-          chainId: 1,
+          nonce: 0n,
+          chainId: 1n,
         }),
         sendSignedTransaction: jest.fn().mockResolvedValue({
           transactionHash: '0xMockedTxHash',
@@ -26,7 +26,7 @@ jest.mock("../src/web3Provider", () => ({
       },
     },
     utils: {
-      toWei: jest.fn().mockReturnValue('1000000000000000000'), 
+      toWei: jest.fn().mockReturnValue('1000000000000000000'),
     },
   })),
 }));
@@ -54,9 +54,9 @@ describe("FaucetPlugin Tests", () => {
       to: address,
       value: '1000000000000000000',
       gas: 21000,
-      from: '0xMockedAccount',
-      nonce: 0,
-      chainId: 1,
+      from: '0xMockedAccount', // Actual value; consistent mock value
+      nonce: 0n, // Expect BigInt
+      chainId: 1n, // Expect BigInt, actual value; consistent mock value
     });
     expect(web3.eth.getAccounts).toHaveBeenCalled();
     expect(web3.eth.getTransactionCount).toHaveBeenCalled();
