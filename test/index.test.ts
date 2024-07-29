@@ -1,5 +1,6 @@
 import Web3 from "web3";
 import { FaucetPlugin } from "../src";
+import ganache from "ganache-core"; // Importing ganache-core
 
 jest.mock("../src/web3Provider", () => ({
   Web3: jest.fn().mockImplementation(() => ({
@@ -34,11 +35,21 @@ jest.mock("../src/web3Provider", () => ({
 describe("FaucetPlugin Tests", () => {
   let web3: Web3;
   let faucetPlugin: FaucetPlugin;
+  let provider: any;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    web3 = new Web3(require("ganache-core").provider());
+    provider = ganache.provider();
+    web3 = new Web3(provider);
     faucetPlugin = new FaucetPlugin(web3);
+
+    jest.spyOn(web3.eth.accounts, 'sendSignedTransaction');
+  });
+
+  afterEach(() => {
+    if (provider && provider.close) {
+      provider.close();
+    }
   });
 
   it("should initialize FaucetPlugin with Web3 instance", () => {
@@ -54,9 +65,9 @@ describe("FaucetPlugin Tests", () => {
       to: address,
       value: '1000000000000000000',
       gas: 21000,
-      from: '0xMockedAccount', // Actual value; consistent mock value
-      nonce: 0n, // Expect BigInt
-      chainId: 1n, // Expect BigInt, actual value; consistent mock value
+      from: '0xMockedAccount',
+      nonce: 0n,
+      chainId: 1n,
     });
     expect(web3.eth.getAccounts).toHaveBeenCalled();
     expect(web3.eth.getTransactionCount).toHaveBeenCalled();
@@ -67,7 +78,6 @@ describe("FaucetPlugin Tests", () => {
     const address = '0xMockedAddress';
     await faucetPlugin.requestEther(address, 1);
 
-
-    expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith(expect.any(Object));
+    expect(web3.eth.accounts.sendSignedTransaction).toHaveBeenCalledWith(expect.any(String));
   });
 });
