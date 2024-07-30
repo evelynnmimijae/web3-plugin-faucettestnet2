@@ -6,10 +6,13 @@ jest.mock("../src/web3Provider", () => ({
   Web3: jest.fn().mockImplementation(() => ({
     eth: {
       getAccounts: jest.fn().mockResolvedValue(['0xMockedAccount']),
-      getTransactionCount: jest.fn().mockResolvedValue(0n),
+      getTransactionCount: jest.fn().mockResolvedValue(0),
       net: {
-        getId: jest.fn().mockResolvedValue(1n),
+        getId: jest.fn().mockResolvedValue(1),
       },
+      sendSignedTransaction: jest.fn().mockResolvedValue({
+        transactionHash: '0xMockedTxHash',
+      }),
       accounts: {
         signTransaction: jest.fn().mockResolvedValue({
           rawTransaction: '0xMockedRawTransaction',
@@ -18,11 +21,8 @@ jest.mock("../src/web3Provider", () => ({
           value: '1000000000000000000',
           gas: 21000,
           from: '0xMockedAccount',
-          nonce: 0n,
-          chainId: 1n,
-        }),
-        sendSignedTransaction: jest.fn().mockResolvedValue({
-          transactionHash: '0xMockedTxHash',
+          nonce: 0,
+          chainId: 1,
         }),
       },
     },
@@ -43,11 +43,12 @@ describe("FaucetPlugin Tests", () => {
     web3 = new Web3(provider);
     faucetPlugin = new FaucetPlugin(web3);
 
-    jest.spyOn(web3.eth.accounts, 'sendSignedTransaction');
+    jest.spyOn(web3.eth.accounts, 'signTransaction');
+    jest.spyOn(web3.eth, 'sendSignedTransaction');
   });
 
   afterEach(() => {
-    if (provider && provider.close) {
+    if (provider && typeof provider.close === 'function') {
       provider.close();
     }
   });
@@ -66,8 +67,8 @@ describe("FaucetPlugin Tests", () => {
       value: '1000000000000000000',
       gas: 21000,
       from: '0xMockedAccount',
-      nonce: 0n,
-      chainId: 1n,
+      nonce: 0,
+      chainId: 1,
     });
     expect(web3.eth.getAccounts).toHaveBeenCalled();
     expect(web3.eth.getTransactionCount).toHaveBeenCalled();
@@ -78,6 +79,7 @@ describe("FaucetPlugin Tests", () => {
     const address = '0xMockedAddress';
     await faucetPlugin.requestEther(address, 1);
 
-    expect(web3.eth.accounts.sendSignedTransaction).toHaveBeenCalledWith(expect.any(String));
+    expect(web3.eth.accounts.signTransaction).toHaveBeenCalledWith(expect.any(Object), expect.any(String));
+    expect(web3.eth.sendSignedTransaction).toHaveBeenCalledWith(expect.any(String));
   });
 });
