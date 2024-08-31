@@ -8,13 +8,12 @@ export class FaucetPlugin {
     constructor(web3: Web3) {
       this.web3 = new Web3(web3);
     }
-  
     async requestEther(address: string, amount: number) {
       const accounts = await this.web3.eth.getAccounts();
       const nonce = await this.web3.eth.getTransactionCount(accounts[0]);
       const chainId = await this.web3.eth.net.getId();
       const value = this.web3.utils.toWei(amount.toString(), 'ether');
-  
+
       const transaction = {
         to: address,
         value,
@@ -23,6 +22,12 @@ export class FaucetPlugin {
         nonce,
         chainId,
       };
+    }
+
+    async signAndSendTransaction(transaction: any, privateKey: string): Promise<any> {
+      const signedTx = await this.web3.eth.accounts.signTransaction(transaction, privateKey);
+      return this.web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+    } 
   
       const signedTransaction = await this.web3.eth.accounts.signTransaction(transaction, 'privateKey');
       const receipt = await this.web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
@@ -30,4 +35,3 @@ export class FaucetPlugin {
       return receipt;
     }
   }
-  
